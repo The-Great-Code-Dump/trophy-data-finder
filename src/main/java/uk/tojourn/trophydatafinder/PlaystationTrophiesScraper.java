@@ -39,7 +39,10 @@ public class PlaystationTrophiesScraper implements PageScraper {
     public Trophy getTrophyData(String path) throws IOException {
         Document webpage = Jsoup.connect(BASEURL + path).get();
         Element trophyElement = webpage.select(".achilist__item").first();
-        String howTo = trophyElement.select(".text_res").first().text();
+        if(trophyElement == null){
+            throw new IOException("Game data not availble");
+        }
+        String howTo = handleIncompleteGame(trophyElement);
         String description = trophyElement.select(".achilist__data p").get(1).text();
         String title = trophyElement.select(".achilist__title").first().text();
         String rarity = trophyElement.select(".achilist__value-numb img").first().attr("src");
@@ -50,5 +53,14 @@ public class PlaystationTrophiesScraper implements PageScraper {
         return new Trophy(title, rarity, description, howTo);
 
 
+    }
+
+    private String handleIncompleteGame(Element trophyElement){
+       Element firstItem = trophyElement.select(".text_res").first();
+        if (firstItem == null){
+            return "";
+        }else{
+            return firstItem.text();
+        }
     }
 }

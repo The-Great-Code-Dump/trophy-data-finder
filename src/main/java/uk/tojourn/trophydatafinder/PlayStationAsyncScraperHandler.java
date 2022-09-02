@@ -22,10 +22,11 @@ public class PlayStationAsyncScraperHandler extends Thread {
         if(links != null) {
             links.forEach(link -> {
                 try {
-                    scraper.getTrophyData(link);
+                    Trophy aTrophy = scraper.getTrophyData(link);
                     //Prevent thinking it's a ddos
                     Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 5000));
                     //TODO: Send trophy data to api to save the trophy data for given game.
+                    logger.info(String.format("Saved the trophy, %s", aTrophy.title));
                 } catch (Exception error) {
                     logger.error(String.format("An error occured trying to find %s \n Error: %s", link, error.getMessage()));
                 }
