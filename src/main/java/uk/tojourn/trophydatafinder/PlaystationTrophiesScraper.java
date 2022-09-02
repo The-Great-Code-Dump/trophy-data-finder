@@ -36,7 +36,7 @@ public class PlaystationTrophiesScraper implements PageScraper {
                     item.attr("href")).collect(Collectors.toSet());
     }
 
-    public Trophy getTrophyData(String path) throws IOException {
+    public Trophy getTrophyData(String path, String game) throws IOException {
         Document webpage = Jsoup.connect(BASEURL + path).get();
         Element trophyElement = webpage.select(".achilist__item").first();
         if(trophyElement == null){
@@ -50,7 +50,7 @@ public class PlaystationTrophiesScraper implements PageScraper {
         if (matcher.find()) {
             rarity = matcher.group(0);
         }
-        return new Trophy(title, rarity, description, howTo);
+        return new Trophy(game, title, rarity, description, howTo);
 
 
     }

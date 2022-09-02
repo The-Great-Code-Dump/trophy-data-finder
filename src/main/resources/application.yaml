@@ -1,1 +1,5 @@
 
+
+persistence-api:
+  save-url: "http://localhost:8180/graphql"
+
