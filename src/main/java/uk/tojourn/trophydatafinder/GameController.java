@@ -17,11 +17,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GameController {
     Logger logger = LoggerFactory.getLogger(GameController.class);
     private final PlaystationTrophiesScraper scraper;
-
+    private final TrophyRepository repository;
 
     @Autowired
-    public GameController(PlaystationTrophiesScraper scraper){
+    public GameController(PlaystationTrophiesScraper scraper, TrophyRepository repository){
         this.scraper = scraper;
+        this.repository = repository;
     }
     @GetMapping("/{gameName}")
     public ResponseEntity<String> getGame(@PathVariable String gameName){
@@ -33,7 +34,7 @@ public class GameController {
         //TODO: Check game does not have trophy data already if it exists return HTTP 409 conflict (we won't need to update this once the data is in)
         try {
             //TODO: parse game id for api
-            PlayStationAsyncScraperHandler scraperHandler = new PlayStationAsyncScraperHandler(scraper, gameName);
+            PlayStationAsyncScraperHandler scraperHandler = new PlayStationAsyncScraperHandler(scraper, gameName, repository);
             scraperHandler.start();
         }catch (Exception error){
             logger.error("Error occured when calling playstation trophies.");

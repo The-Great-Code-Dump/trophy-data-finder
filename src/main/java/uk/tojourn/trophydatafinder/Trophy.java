@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class Trophy {
+    String gameName;
     String howTo;
     String description;
     String title;

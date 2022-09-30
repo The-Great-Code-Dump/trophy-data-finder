@@ -1,0 +1,44 @@
+type Query {
+    game(name: String!): Game
+    achievement(name: String!): Achievement
+}
+
+type Mutation {
+    addGame(game: GameInput): Game
+    addAchievement(achievement: AchievementInput): Achievement
+}
+
+input GameInput {
+    name: String!
+}
+
+type Game {
+    name: String!
+}
+
+input AchievementInput {
+    name: String!
+    gameName: String!
+    description: String!
+    solution: String!
+    imageUrl: String
+    iconUrl: String
+    rarity: Rarity!
+}
+
+type Achievement {
+    name: String!
+    gameName: String!
+    description: String!
+    solution: String!
+    imageUrl: String
+    iconUrl: String
+    rarity: Rarity!
+}
+
+enum Rarity {
+    BRONZE
+    SILVER
+    GOLD
+    PLATINUM
+}

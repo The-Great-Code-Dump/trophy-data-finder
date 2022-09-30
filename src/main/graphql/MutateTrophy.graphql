@@ -1,0 +1,20 @@
+mutation MutateTrophy($gameName: String!, $name: String!, $description: String!, $solution: String!, $imageUrl: String, $iconUrl: String, $rarity: Rarity!){
+    addAchievement(achievement:{
+        gameName: $gameName,
+        name: $name,
+        description: $description,
+        solution: $solution,
+        imageUrl: $imageUrl,
+        iconUrl: $iconUrl,
+        rarity: $rarity,
+    }) {
+        name,
+        gameName,
+        description,
+        solution,
+        imageUrl,
+        iconUrl,
+        rarity,
+    }
+
+}
