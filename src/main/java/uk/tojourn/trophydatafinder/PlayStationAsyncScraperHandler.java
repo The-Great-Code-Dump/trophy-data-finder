@@ -2,7 +2,7 @@ package uk.tojourn.trophydatafinder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-;
+
 
 import java.io.IOException;
 import java.util.Set;
@@ -19,6 +19,7 @@ public class PlayStationAsyncScraperHandler extends Thread {
     }
 
     public void run(){
+        //TODO some how return an error status code if this fails
         Set<String> links = getTrophyWebpages(gameName);
         if(links != null) {
             links.forEach(link -> {
@@ -27,8 +28,8 @@ public class PlayStationAsyncScraperHandler extends Thread {
                     //Prevent thinking it's a ddos
                     Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 5000));
                     //TODO: Send trophy data to api to save the trophy data for given game.
-                    repository.persistTrophy(aTrophy);
-                    logger.info(String.format("Saved the trophy, %s", aTrophy.title));
+                   repository.persistTrophy(aTrophy);
+                   logger.info(String.format("Saved the trophy, %s", aTrophy.title));
                 } catch (Exception error) {
                     logger.error(String.format("An error occured trying to find %s \n Error: %s", link, error.getMessage()));
                 }

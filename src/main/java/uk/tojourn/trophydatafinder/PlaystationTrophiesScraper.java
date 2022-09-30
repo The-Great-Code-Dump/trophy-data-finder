@@ -50,7 +50,7 @@ public class PlaystationTrophiesScraper implements PageScraper {
         if (matcher.find()) {
             rarity = matcher.group(0);
         }
-        return new Trophy(game, title, rarity, description, howTo);
+        return new Trophy(game, howTo, description, title, rarity);
 
 
     }
